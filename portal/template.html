@@ -169,6 +169,40 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
 @media(max-width:980px){.board{grid-template-columns:repeat(4,minmax(0,1fr))}.info{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tl{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:18px}.tl::before{display:none}}
 @media(max-width:760px){.hgrid{grid-template-columns:minmax(0,1fr)}.ringbox{justify-self:start}.board{grid-template-columns:repeat(2,minmax(0,1fr))}.pgrid{grid-template-columns:minmax(0,1fr)}.info{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.ring{width:128px;height:128px}.ring b{font-size:36px}.lec summary{grid-template-columns:48px minmax(0,1fr) auto;gap:12px;padding:12px}.num{width:46px;height:46px;font-size:20px}.mini span{display:none}.prow{grid-template-columns:40px minmax(0,1fr);row-gap:8px}.prow .stsel{grid-column:2}.prow .open{display:none}.tl{grid-template-columns:repeat(2,minmax(0,1fr))}.bar{top:58px}.stack thead{display:none}.stack tr{display:grid;padding:10px 14px;border-top:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;text-align:right}.stack td::before{content:attr(data-l);font-weight:700;font-size:13px;color:var(--mute);text-align:left;flex:none}.kv{grid-template-columns:minmax(0,1fr)}.cont{flex-wrap:wrap}.cont .go{margin-left:0}}
+.hrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.sync{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#c5d8ea;background:rgb(255 255 255/.06);border:1px solid rgb(255 255 255/.14);border-radius:999px;padding:8px 14px}
+.sync i{width:9px;height:9px;border-radius:50%;background:#8fa3b8}
+.sync[data-s=ok] i{background:#5fe0a1}.sync[data-s=busy] i{background:var(--sky)}.sync[data-s=err] i{background:#ff9f6e}.sync[data-s=ro] i{background:#f6c26b}
+.col{display:grid;gap:20px}
+.small{font-size:14px;margin:4px 0 12px}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fgrid label,.inl{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--mute)}
+.fgrid input,.inl input,.sc input{font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-height:44px;width:100%}
+.inl{grid-template-columns:auto 84px;align-items:center;gap:8px}
+.chkl{grid-template-columns:auto auto}.chkl input{width:20px;height:20px;min-height:0}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.kpi b{display:block;font-size:34px;font-weight:300;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:14px;color:var(--mute)}
+.heat{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:4px;margin-top:6px}
+.hc{aspect-ratio:1;border-radius:7px;display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--ink);background:color-mix(in srgb,var(--pink) var(--p),var(--soft))}
+.hc.hi{color:#fff}
+.strip{display:flex;gap:2px}
+.strip i{width:12px;height:18px;border-radius:3px;background:color-mix(in srgb,var(--pink) var(--p),var(--soft))}
+.who b{display:block}.who span{font-size:13px;color:var(--mute)}
+.lnk{background:none;border:0;color:var(--pinkd);font-weight:700;cursor:pointer;padding:8px 0;font-size:15px}
+.hardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+.hard{display:grid;grid-template-columns:minmax(0,1fr) 56px;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.hard .n{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}
+.scrim{position:fixed;inset:0;background:rgb(5 15 30/.45);z-index:30}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--bg);z-index:31;overflow-y:auto;padding:24px;box-shadow:-12px 0 40px rgb(0 0 0/.25);border-left:1px solid var(--line)}
+.xbtn{float:right}
+.drawer h3{font-size:24px;margin:0 0 4px;line-height:1.2}
+.sc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.sc label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--mute)}
+.rd{font-size:44px;font-weight:300;line-height:1}
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+@media(max-width:760px){.hardgrid{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.heat{grid-template-columns:repeat(10,minmax(0,1fr))}.fgrid{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -178,8 +212,8 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
     <div>
       <span class="eyebrow"><i></i>120 hours · 40 lectures · <span id="nprob"></span> problems · 7 projects</span>
       <h1>DSA &amp; competitive programming for ₹10+ LPA placements</h1>
-      <p class="lead">Follow the lecture plan, solve the linked problems, and watch the board fill up. Your progress is saved in this browser.</p>
-      <div class="seg" role="group" aria-label="Language track"><button id="l-cpp" aria-pressed="true">C++ track</button><button id="l-java" aria-pressed="false">Java track</button></div>
+      <p class="lead">Follow the lecture plan, solve the linked problems, and watch the board fill up. <span id="leadsave">Your progress is saved in this browser.</span></p>
+      <div class="hrow"><div class="seg" role="group" aria-label="Language track"><button id="l-cpp" aria-pressed="true">C++ track</button><button id="l-java" aria-pressed="false">Java track</button></div><div class="sync" id="sync" data-s="local"><i></i><span id="synct">Saved in this browser</span></div></div>
       <div class="cont" id="cont"></div>
     </div>
     <div class="ringbox">
@@ -190,7 +224,7 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
   <div class="board" id="board" aria-label="Lecture progress board"></div>
 </div></header>
 <nav><div class="wrap">
-  <a href="#lectures">Lectures</a><a href="#problems">Problem bank</a><a href="#projects">Projects</a><a href="#contests">Contests</a><a href="#placement">Placement</a><a href="#toolkit" id="tk-tab">C++ toolkit</a><a href="#progress">My progress</a>
+  <a href="#lectures">Lectures</a><a href="#problems">Problem bank</a><a href="#projects">Projects</a><a href="#contests">Contests</a><a href="#placement">Placement</a><a href="#toolkit" id="tk-tab">C++ toolkit</a><a href="#progress">My progress</a><a href="#class" class="staffonly" hidden>Class</a><a href="#readiness" class="staffonly" hidden>Readiness</a>
 </div></nav>
 <main><div class="wrap">
   <section class="view" id="v-lectures">
@@ -220,156 +254,43 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
   <section class="view" id="v-placement"><h2>Placement readiness</h2><p class="h2sub">Lectures 37-40 plus ongoing work on resumes and profiles.</p><div class="cards" id="pm"></div></section>
   <section class="view" id="v-toolkit"><h2 id="tk-h">C++ toolkit</h2><p class="h2sub">The containers and idioms used across the course, with the mistakes that cost contest points.</p><div class="tbl scroll"><table class="stack"><thead><tr><th>Need</th><th>Tool / idiom</th><th>Cost</th><th>Watch out</th></tr></thead><tbody id="tktb"></tbody></table></div>
     <div class="sec"><h2>Reference resources</h2><p class="h2sub">&nbsp;</p><div class="cards" id="refs"></div></div></section>
-  <section class="view" id="v-progress"><h2>My progress</h2><p class="h2sub">Solved and upsolved problems count toward completion.</p>
+  <section class="view" id="v-progress"><h2>My progress</h2><p class="h2sub" id="progsub">Solved and upsolved problems count toward completion.</p>
     <div class="pgrid"><div class="panel"><b>By module</b><div id="mtb"></div></div>
-    <div class="panel"><b>Move your progress</b><p class="h2sub" style="margin:6px 0 10px;font-size:14px">Progress is saved only in this browser. Copy this code to another device, or send it to your instructor.</p><textarea id="code" aria-label="Progress code"></textarea>
-      <div class="tools"><button class="btn pri" id="copy">Copy code</button><button class="btn" id="load">Load pasted code</button><button class="btn" id="reset">Reset</button></div></div></div></section>
+    <div class="col">
+      <form class="panel" id="pform"><b>My profile</b><p class="h2sub small" id="pfnote">Add your details so your teachers and the placement office can see your progress.</p>
+        <div class="fgrid">
+          <label>Roll number<input id="f-roll" maxlength="30" autocomplete="off"></label>
+          <label>Batch / section<input id="f-batch" maxlength="40" placeholder="e.g. CSE-A 2027" autocomplete="off"></label>
+          <label>Codeforces handle<input id="f-cf" maxlength="40" autocomplete="off"></label>
+          <label>LeetCode username<input id="f-lc" maxlength="40" autocomplete="off"></label>
+          <label>CodeChef username<input id="f-cc" maxlength="40" autocomplete="off"></label>
+        </div>
+        <div class="tools"><button class="btn pri" type="submit">Save profile</button></div></form>
+      <div class="panel" id="myscores"><b>My scores</b><div id="mysc"></div></div>
+      <div class="panel"><b>Backup code</b><p class="h2sub small">A copy of your progress you can paste on another device or send to your instructor.</p><textarea id="code" aria-label="Progress code"></textarea>
+        <div class="tools"><button class="btn" id="copy">Copy code</button><button class="btn" id="load">Load pasted code</button><button class="btn" id="reset">Reset</button></div></div>
+    </div></div></section>
+  <section class="view" id="v-class"><h2>Class overview</h2><p class="h2sub">Live progress of every student who has opened the portal. Click a student to see details and enter scores.</p>
+    <div class="bar" style="position:static"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="cq" placeholder="Search name, roll number or handle" aria-label="Search students"></label><select id="cb" aria-label="Batch"></select><select id="cs" aria-label="Sort"><option value="pct">Sort: completion</option><option value="name">Sort: name</option><option value="active">Sort: last active</option><option value="ready">Sort: readiness</option></select><span class="count" id="ccount"></span></div>
+    <div class="kpis" id="ckpi"></div>
+    <div class="panel" style="margin-bottom:16px"><b>Lecture completion across the class</b><p class="h2sub small">Average share of each lecture's problems solved. Pale tiles are where the class is behind.</p><div class="heat" id="cheat"></div></div>
+    <div class="tbl scroll"><table class="stack"><thead><tr><th>Student</th><th>Batch</th><th>Solved</th><th>By module</th><th>Last active</th><th></th></tr></thead><tbody id="ctbody"></tbody></table></div>
+    <div class="panel" style="margin-top:16px"><b>Hardest problems right now</b><p class="h2sub small">Lowest solve rate among lectures the class has started. Good candidates to re-teach.</p><div class="hardgrid" id="chard"></div></div></section>
+  <section class="view" id="v-readiness"><h2>Placement readiness</h2><p class="h2sub">Readiness = contests 30% + problem completion 20% + projects 30% + mock OA &amp; interviews 20%. Problem completion earns full marks at 70% of the bank.</p>
+    <div class="bar" style="position:static"><select id="rb" aria-label="Batch"></select>
+      <label class="inl">Min readiness <input type="number" id="rmin" min="0" max="100" value="0" inputmode="numeric"></label>
+      <label class="inl">Min % solved <input type="number" id="rpct" min="0" max="100" value="0" inputmode="numeric"></label>
+      <label class="inl chkl"><input type="checkbox" id="rcf"> Has Codeforces handle</label>
+      <button class="btn pri" id="rexp">Export shortlist (CSV)</button><span class="count" id="rcount"></span></div>
+    <div class="tbl scroll"><table class="stack"><thead><tr><th>#</th><th>Student</th><th>Batch</th><th>Solved</th><th>Contests</th><th>Projects</th><th>Mock</th><th>Readiness</th><th>Codeforces</th></tr></thead><tbody id="rbody"></tbody></table></div>
+    <textarea id="csvout" aria-label="CSV export" hidden style="margin-top:12px"></textarea></section>
 </div></main>
-<footer><div class="wrap">CSES and AtCoder links were checked against their live problem lists; Codeforces and LeetCode links point to well-known classic problems. Excel versions of this plan exist for both tracks.</div></footer>
+<footer><div class="wrap">CSES and AtCoder links were checked against their live problem lists; Codeforces and LeetCode links point to well-known classic problems. Excel versions of this plan exist for both tracks. Signed-in students' progress is shared with course staff (Editors of this page); everyone else's stays in their own browser.</div></footer>
 <div class="toast" id="toast" role="status"></div>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Student details"><button class="btn xbtn" id="dclose" aria-label="Close">Close</button><div id="dbody"></div></aside>
 <script>
-{
-const D = __DATA__;
-const STAT = ["Not started","Attempted","Solved","Upsolved","Revisit"];
-const KEY = "dsa-course-v1";
-const MC = ["#8fd3ff","#ff5c8a","#f6c26b","#7ee0b5","#b9a6ff","#ff9f6e","#5ec8e5","#e98fd0","#a5d66b","#ffd36e","#7fb2ff","#ff7a7a"];
-let S = {lang:"cpp", st:{}};
-try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const $ = id => document.getElementById(id);
-const st = p => S.st[p.id] || "Not started";
-const done = p => st(p) === "Solved" || st(p) === "Upsolved";
-const mods = [...new Set(D.lectures.map(l => l.module))];
-const mcol = m => MC[mods.indexOf(m) % MC.length];
-const lecById = Object.fromEntries(D.lectures.map(l => [l.no, l]));
-const byLec = {}; D.problems.forEach(p => (byLec[p.lec] ||= []).push(p));
-const open = new Set(); let modF = "";
-$("nprob").textContent = D.problems.length;
-let tt; const toast = t => { $("toast").textContent = t; $("toast").classList.add("on"); clearTimeout(tt); tt = setTimeout(() => $("toast").classList.remove("on"), 1800); };
-
-const opts = (el, label, vals) => { el.innerHTML = `<option value="">${esc(label)}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join(""); };
-opts($("pf-plat"), "Platform", [...new Set(D.problems.map(p => p.plat))]);
-opts($("pf-diff"), "Level", ["Easy","Medium","Hard"]);
-opts($("pf-typ"), "Type", [...new Set(D.problems.map(p => p.typ))]);
-opts($("pf-mod"), "Module", mods);
-opts($("pf-st"), "Status", STAT);
-
-const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
-const mini = pc => `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--soft)" stroke-width="6"/><circle cx="20" cy="20" r="16" fill="none" stroke="var(--pink)" stroke-width="6" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="${100.5 - pc * 1.005}"/></svg>`;
-const prow = (p, showLec) => `<div class="prow st-${st(p).replace(/ /g,"")}">
-  <button class="chk${done(p)?" on":""}" data-tog="${esc(p.id)}" aria-pressed="${done(p)}" aria-label="Mark ${esc(p.name)} solved">${CHECK}</button>
-  <div class="pname"><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.name)}</a><div class="sub"><span>${esc(p.plat)}</span><span class="tag d-${p.diff}">${p.diff}</span><span class="tag">${esc(p.typ)}</span>${showLec?`<span>L${p.lec}</span>`:""}<span>${esc(p.idea)}</span></div></div>
-  <select class="stsel s-${st(p).replace(/ /g,"")}" data-id="${esc(p.id)}" aria-label="Status of ${esc(p.name)}">${STAT.map(s => `<option${st(p)===s?" selected":""}>${s}</option>`).join("")}</select>
-  <a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">Open ↗</a></div>`;
-
-function header() {
-  const all = D.problems, n = all.filter(done).length, t = all.length, pc = Math.round(n / t * 100);
-  $("pct").textContent = pc + "%";
-  $("arc").style.strokeDashoffset = 326.7 * (1 - n / t);
-  const c = s => all.filter(p => st(p) === s).length;
-  $("stats").innerHTML = [["Solved", n, "#ff5c8a"], ["Attempted", c("Attempted"), "#f6c26b"], ["To revisit", c("Revisit"), "#ff9f6e"], ["Remaining", t - n, "#8fd3ff"]]
-    .map(([l, v, col]) => `<div class="stat"><b>${v}</b><span><i class="dot" style="background:${col}"></i>${l}</span></div>`).join("");
-  $("board").innerHTML = mods.map(m => `<div class="mod"><h3>${esc(m.replace(/^M\d+ /, ""))}</h3><div class="tiles">${
-    D.lectures.filter(l => l.module === m).map(l => { const ps = byLec[l.no] || [], d = ps.filter(done).length, p = ps.length ? Math.round(d / ps.length * 100) : 0;
-      return `<button class="tile${p===100?" done":""}" style="--p:${p}%" data-lec="${l.no}" title="L${l.no}: ${esc(l.topic)} (${d}/${ps.length})" aria-label="Lecture ${l.no}, ${d} of ${ps.length} solved">${l.no}</button>`; }).join("")}</div></div>`).join("");
-  const next = all.find(p => !done(p) && p.typ !== "Contest");
-  $("cont").innerHTML = next ? `<div><div class="lbl">Continue where you left off</div><a href="${esc(next.url)}" target="_blank" rel="noopener">${esc(next.name)}</a><div class="m">Lecture ${next.lec} · ${esc(lecById[next.lec].topic)} · ${esc(next.plat)}</div></div><button class="btn ghost go" data-goto="${next.lec}">View lecture</button>`
-    : `<div><div class="lbl">All done</div><div class="m">Every problem is solved. Time for mock interviews.</div></div>`;
-}
-
-function lectures() {
-  const q = $("lq").value.toLowerCase(), notes = D.notes[S.lang], L = S.lang === "cpp" ? "C++" : "Java";
-  $("lchips").innerHTML = [["", "All modules"], ...mods.map(m => [m, m])].map(([v, t]) => `<button class="chip" data-mod="${esc(v)}" aria-pressed="${modF===v}">${esc(t)}</button>`).join("");
-  const list = D.lectures.filter(l => (!modF || l.module === modF) && (!q || (l.topic + " " + l.sub + " " + l.module).toLowerCase().includes(q)));
-  $("lcount").textContent = `${list.length} of 40 lectures`;
-  $("leclist").innerHTML = list.map(l => {
-    const ps = byLec[l.no] || [], d = ps.filter(done).length, pc = ps.length ? d / ps.length * 100 : 0;
-    return `<details class="lec${pc===100?" full":""}" id="lec-${l.no}" data-no="${l.no}"${open.has(l.no)?" open":""}><summary>
-      <div class="num">${l.no}</div>
-      <div><h4>${esc(l.topic)}</h4><div class="meta"><span class="mtag" style="--mc:${mcol(l.module)}"><i></i>${esc(l.module)}</span><span>Week ${Math.ceil(l.no/2)}</span><span>3 hrs</span></div></div>
-      <div class="mini">${mini(pc)}<span>${d}/${ps.length}</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div></summary>
-      <div class="body">
-        <div class="info"><div class="box"><span class="k">Subtopics</span>${esc(l.sub)}</div><div class="box"><span class="k">You will be able to</span>${esc(l.out)}</div><div class="box lang"><span class="k">${L} focus</span>${esc(notes[l.no-1])}</div></div>
-        <div class="box" style="margin-bottom:12px"><span class="k">Session plan</span>${esc(l.format).replace(/ \| /g, " · ")}</div>
-        ${l.milestone ? `<div class="ms">Project milestone: ${esc(l.milestone)}</div>` : ""}
-        <div class="plist">${ps.map(p => prow(p, false)).join("")}</div></div></details>`;
-  }).join("") || `<div class="empty">No lectures match your search.</div>`;
-}
-
-function problems() {
-  const q = $("pq").value.toLowerCase(), f = id => $(id).value;
-  const list = D.problems.filter(p => (!q || (p.name + " " + p.idea + " " + lecById[p.lec].topic).toLowerCase().includes(q))
-    && (!f("pf-plat") || p.plat === f("pf-plat")) && (!f("pf-diff") || p.diff === f("pf-diff")) && (!f("pf-typ") || p.typ === f("pf-typ"))
-    && (!f("pf-mod") || lecById[p.lec].module === f("pf-mod")) && (!f("pf-st") || st(p) === f("pf-st")));
-  $("pcnt").textContent = `${list.length} of ${D.problems.length}`;
-  $("plist").innerHTML = list.map(p => prow(p, true)).join("") || `<div class="empty">No problems match these filters.</div>`;
-}
-
-function statics() {
-  const sk = D.stacks[S.lang], L = S.lang === "cpp" ? "C++" : "Java";
-  $("projcards").innerHTML = D.projects.map((p, i) => `<article class="card"><div class="top"><div class="badge">${esc(p.no)}</div><div><h4>${esc(p.name)}</h4><div class="meta"><span>${esc(p.cat)}</span><span>Kickoff ${esc(p.kick)}</span><span>Due ${esc(p.due)}</span></div></div></div>
-    <p>${esc(p.desc)}</p><dl class="kv"><dt>DSA used</dt><dd>${esc(p.concepts)}</dd><dt>Lectures</dt><dd>${esc(p.lecs)}</dd><dt>Milestones</dt><dd>${esc(p.miles).replace(/ \| /g, " → ")}</dd><dt>${L} stack</dt><dd>${esc(sk[i])}</dd><dt>Rubric</dt><dd>${esc(p.rubric)}</dd></dl></article>`).join("");
-  $("tk-tab").textContent = `${L} toolkit`; $("tk-h").textContent = `${L} toolkit`;
-  $("tktb").innerHTML = D.kit[S.lang].map(r => `<tr><td data-l="Need"><b>${esc(r[0])}</b></td><td data-l="Tool"><code>${esc(r[1])}</code></td><td data-l="Cost">${esc(r[2])}</td><td data-l="Watch out">${esc(r[3])}</td></tr>`).join("");
-  $("l-cpp").setAttribute("aria-pressed", S.lang === "cpp"); $("l-java").setAttribute("aria-pressed", S.lang === "java");
-}
-
-function once() {
-  $("ctl").innerHTML = D.contests.map(c => `<div><div class="pin">L${c[1]}</div><b>${esc(c[0])}</b><span>${esc(c[5])} · ${esc(c[3])}</span></div>`).join("");
-  $("ctb").innerHTML = D.contests.map(c => `<tr><td data-l="Assessment"><b>${esc(c[0])}</b></td><td data-l="Lecture">L${c[1]}</td><td data-l="Format">${esc(c[2])}</td><td data-l="Syllabus">${esc(c[3])}</td><td data-l="Source">${esc(c[4])}</td><td data-l="Duration">${esc(c[5])}</td></tr>`).join("");
-  $("live").innerHTML = D.live.map(c => `<article class="card"><h4>${esc(c[0])}</h4><p class="h2sub" style="margin:0">${esc(c[1])} · ${esc(c[2])}</p><a class="open" style="padding:0" href="${esc(c[3])}" target="_blank" rel="noopener">See schedule ↗</a></article>`).join("");
-  $("wts").innerHTML = D.weights.map(w => `<div class="wb"><div class="row">${esc(w[0])}<span>${Math.round(w[1]*100)}%</span></div><div class="track"><i style="width:${w[1]*100}%"></i></div><p>${esc(w[2])}</p></div>`).join("");
-  const areas = [...new Set(D.placement.map(r => r[0]))];
-  $("pm").innerHTML = areas.map(a => `<article class="card"><h4>${esc(a)}</h4>${D.placement.filter(r => r[0] === a).map(r => `<div style="border-top:1px solid var(--line);padding-top:10px"><b>${esc(r[1])}</b> <span class="tag">${esc(r[3])}</span><p style="margin:4px 0 2px">${esc(r[2])}</p><span class="h2sub" style="font-size:14px">Check: ${esc(r[4])}</span></div>`).join("")}</article>`).join("");
-  $("refs").innerHTML = D.platforms.map(r => `<article class="card"><h4>${esc(r[0])}</h4><p>${esc(r[1])}</p><a class="open" style="padding:0" href="${esc(r[2])}" target="_blank" rel="noopener">Open ↗</a></article>`).join("");
-}
-
-function progress() {
-  $("mtb").innerHTML = mods.map(m => { const ps = D.problems.filter(p => lecById[p.lec].module === m), d = ps.filter(done).length, pc = Math.round(d / ps.length * 100);
-    return `<div class="mrow"><div><b>${esc(m)}</b><div class="track"><i style="width:${pc}%;background:${mcol(m)}"></i></div></div><div class="n">${d}/${ps.length}</div></div>`; }).join("");
-  $("code").value = btoa(JSON.stringify(S.st));
-}
-
-const all = () => { header(); lectures(); problems(); statics(); progress(); };
-const VIEWS = ["lectures","problems","projects","contests","placement","toolkit","progress"];
-function route() {
-  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "lectures";
-  VIEWS.forEach(x => $("v-" + x).classList.toggle("on", x === v));
-  document.querySelectorAll("nav a").forEach(a => a.getAttribute("href") === "#" + v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-}
-function setStatus(id, val) {
-  if (val === "Not started") delete S.st[id]; else S.st[id] = val;
-  save(); header(); progress(); lectures(); if (location.hash === "#problems") problems();
-}
-function gotoLec(no) {
-  open.add(no); modF = ""; $("lq").value = ""; lectures();
-  if (location.hash !== "#lectures") location.hash = "lectures"; route();
-  requestAnimationFrame(() => $("lec-" + no)?.scrollIntoView({behavior: "smooth", block: "start"}));
-}
-
-document.addEventListener("change", e => { const id = e.target.dataset?.id; if (id) { setStatus(id, e.target.value); toast(`${id}: ${e.target.value}`); } });
-document.addEventListener("click", e => {
-  const t = e.target.closest("[data-tog]"); if (t) { const id = t.dataset.tog, on = S.st[id] === "Solved" || S.st[id] === "Upsolved"; setStatus(id, on ? "Not started" : "Solved"); toast(on ? "Marked as not started" : "Nice, marked solved"); return; }
-  const g = e.target.closest("[data-goto],[data-lec]"); if (g) { gotoLec(+(g.dataset.goto || g.dataset.lec)); return; }
-  const c = e.target.closest("[data-mod]"); if (c) { modF = c.dataset.mod; lectures(); }
-});
-$("leclist").addEventListener("toggle", e => { const n = +e.target.dataset.no; if (!n) return; e.target.open ? open.add(n) : open.delete(n); }, true);
-$("expand").addEventListener("click", () => { const anyClosed = [...document.querySelectorAll("#leclist details")].some(d => !d.open);
-  document.querySelectorAll("#leclist details").forEach(d => { d.open = anyClosed; const n = +d.dataset.no; anyClosed ? open.add(n) : open.delete(n); }); $("expand").textContent = anyClosed ? "Collapse all" : "Expand all"; });
-$("lq").addEventListener("input", lectures);
-["pq","pf-plat","pf-diff","pf-typ","pf-mod","pf-st"].forEach(id => $(id).addEventListener("input", problems));
-$("pf-reset").addEventListener("click", () => { ["pq","pf-plat","pf-diff","pf-typ","pf-mod","pf-st"].forEach(id => $(id).value = ""); problems(); });
-$("l-cpp").addEventListener("click", () => { S.lang = "cpp"; save(); statics(); lectures(); toast("Showing the C++ track"); });
-$("l-java").addEventListener("click", () => { S.lang = "java"; save(); statics(); lectures(); toast("Showing the Java track"); });
-$("copy").addEventListener("click", async () => { try { await navigator.clipboard.writeText($("code").value); toast("Code copied"); } catch (e) { $("code").select(); toast("Select the code and copy it"); } });
-$("load").addEventListener("click", () => { try { const v = JSON.parse(atob($("code").value.trim())); if (typeof v !== "object" || !v || Array.isArray(v)) throw 0; const ok = {}; for (const [k, s] of Object.entries(v)) if (/^P\d{3}$/.test(k) && STAT.includes(s)) ok[k] = s; S.st = ok; save(); all(); toast(`Loaded ${Object.keys(ok).length} entries`); } catch (e) { toast("That code could not be read"); } });
-let armed = false;
-$("reset").addEventListener("click", () => { if (!armed) { armed = true; $("reset").textContent = "Click again to confirm"; setTimeout(() => { armed = false; $("reset").textContent = "Reset"; }, 4000); return; } armed = false; S.st = {}; save(); all(); $("reset").textContent = "Reset"; toast("Progress cleared"); });
-document.addEventListener("keydown", e => { if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); location.hash = "problems"; route(); $("pq").focus(); } });
-window.addEventListener("hashchange", route);
-once(); all(); route();
-}
+__APP__
 </script>
 </body>
 </html>

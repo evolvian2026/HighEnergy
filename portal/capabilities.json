@@ -1,0 +1,13 @@
+{
+  "db": {
+    "rules": [
+      { "path": "", "read": "admin", "write": "admin" },
+      { "path": "progress", "read": "admin", "write": "admin" },
+      { "path": "progress/{self}", "read": "interact", "write": "interact" },
+      { "path": "scores", "read": "admin", "write": "admin" },
+      { "path": "scores/{self}", "read": "interact", "write": "admin" }
+    ]
+  },
+  "user": { "scopes": ["profile"] },
+  "downloads": true
+}
