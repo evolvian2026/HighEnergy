@@ -38,6 +38,8 @@ h1{font-size:clamp(32px,4.4vw,50px);line-height:1.05;letter-spacing:-.02em;font-
 .cont a:hover{text-decoration:underline}
 .cont .m{font-size:14px;color:#b5c9dc}
 .cont .go{margin-left:auto;flex:none}
+.pub{margin-top:12px;font-size:15px;color:#c5d8ea}
+.pub a{color:#fff;font-weight:700}
 .ringbox{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;justify-self:end}
 .ring{width:168px;height:168px;position:relative}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -215,6 +217,7 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
       <p class="lead">Follow the lecture plan, solve the linked problems, and watch the board fill up. <span id="leadsave">Your progress is saved in this browser.</span></p>
       <div class="hrow"><div class="seg" role="group" aria-label="Language track"><button id="l-cpp" aria-pressed="true">C++ track</button><button id="l-java" aria-pressed="false">Java track</button></div><div class="sync" id="sync" data-s="local"><i></i><span id="synct">Saved in this browser</span></div></div>
       <div class="cont" id="cont"></div>
+      <!--PUBLIC_BANNER-->
     </div>
     <div class="ringbox">
       <div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="rgb(255 255 255/.12)" stroke-width="12"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="#ff5c8a" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" style="transition:stroke-dashoffset .6s"/></svg><div class="v"><b id="pct">0%</b><span>complete</span></div></div>
