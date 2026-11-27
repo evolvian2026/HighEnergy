@@ -1,13 +1,38 @@
-"""Build dist/index.html from portal/template.html + portal/data.json.
+"""Build the portal from portal/template.html + portal/app.js + portal/data.json.
 
 Usage:  python portal/build_portal.py
-Regenerate data first with:  python course/export_portal_data.py
+
+Writes two builds:
+  dist/index.html        published as the Claude artifact (shared progress, staff views)
+  dist/site/index.html   public copy for code.<domain> (progress stays in each browser)
+  dist/site/pilot/index.html  redirect from code.<domain>/pilot to the Claude artifact
 """
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+ARTIFACT_URL = "https://claude.ai/artifact/Fmt9FH4NKNvmDHeoWQwiJT"
+
 tpl = (ROOT / "portal/template.html").read_text(encoding="utf-8")
+app = (ROOT / "portal/app.js").read_text(encoding="utf-8")
 data = (ROOT / "portal/data.json").read_text(encoding="utf-8").replace("</", "<\\/")
-out = ROOT / "dist/index.html"
-out.write_text(tpl.replace("__DATA__", data), encoding="utf-8")
-print(f"wrote {out} ({out.stat().st_size // 1024} KB)")
+page = tpl.replace("__APP__", app).replace("__DATA__", data)
+
+banner = ('<p class="pub">Enrolled in the course? Use the <a href="/pilot/">shared portal</a> '
+          'so your teachers can see your progress (needs a claude.ai account).</p>')
+outs = {
+    ROOT / "dist/index.html": page.replace("<!--PUBLIC_BANNER-->", ""),
+    ROOT / "dist/site/index.html": page.replace("<!--PUBLIC_BANNER-->", banner),
+    ROOT / "dist/site/pilot/index.html": f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Placement Course: shared portal</title>
+<meta http-equiv="refresh" content="0; url={ARTIFACT_URL}">
+<link rel="canonical" href="{ARTIFACT_URL}">
+<style>body{{font:17px/1.5 system-ui,sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#0a2540;color:#fff;padding:16px}}a{{color:#8fd3ff}}</style>
+</head><body><p>Opening the shared course portal&hellip; If nothing happens, <a href="{ARTIFACT_URL}">open it here</a>.</p>
+<script>location.replace({ARTIFACT_URL!r});</script></body></html>
+""",
+}
+for path, html in outs.items():
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(html, encoding="utf-8")
+    print(f"wrote {path.relative_to(ROOT)} ({len(html.encode()) // 1024} KB)")
