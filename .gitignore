@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 /tmp/
 test-results/
+
+# Teacher guides stay out of the public repo (they live in Claude Docs and the portal database)
+course/content/*-teacher.md
+portal/teacher.json

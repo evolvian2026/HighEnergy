@@ -90,6 +90,7 @@ function lectures() {
       <div class="body">
         <div class="info"><div class="box"><span class="k">Subtopics</span>${esc(l.sub)}</div><div class="box"><span class="k">You will be able to</span>${esc(l.out)}</div><div class="box lang"><span class="k">${L} focus</span>${esc(notes[l.no-1])}</div></div>
         <div class="box" style="margin-bottom:12px"><span class="k">Session plan</span>${esc(l.format).replace(/ \| /g, " · ")}</div>
+        ${lecMod[l.no] ? `<button class="btn rdnotes" data-notes="${l.no}">${BOOK} Read the lecture notes</button>` : ""}
         ${l.milestone ? `<div class="ms">Project milestone: ${esc(l.milestone)}</div>` : ""}
         <div class="plist">${ps.map(p => prow(p, false)).join("")}</div></div></details>`;
   }).join("") || `<div class="empty">No lectures match your search.</div>`;
@@ -226,18 +227,20 @@ function drawer(uid, keepFocus) {
 const refreshDrawer = () => { const f = $("scform"); if (!$("drawer").hidden && f && !f.contains(document.activeElement)) drawer(f.dataset.uid, true); };
 const closeDrawer = () => { $("drawer").hidden = true; $("scrim").hidden = true; };
 
-const all = () => { header(); lectures(); problems(); statics(); progress(); classView(); };
-const VIEWS = ["lectures","problems","projects","contests","placement","toolkit","progress","class","readiness"];
+const all = () => { header(); lectures(); problems(); statics(); progress(); classView(); applyLang(); learn(); };
+const VIEWS = ["learn","lectures","problems","projects","contests","placement","toolkit","progress","class","readiness"];
 function route() {
-  let v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "lectures";
-  if ((v === "class" || v === "readiness") && !R.staff) v = "lectures";
+  let v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "learn";
+  if ((v === "class" || v === "readiness") && !R.staff) v = "learn";
   VIEWS.forEach(x => $("v-" + x).classList.toggle("on", x === v));
   document.querySelectorAll("nav a").forEach(a => a.getAttribute("href") === "#" + v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 }
 
 // ---------- remote sync ----------
 function remoteBody() {
-  return {st: S.st, lang: S.lang, prof: S.prof || {}, solved: D.problems.filter(done).length, updatedAt: new Date().toISOString()};
+  const L = S.learn || {};
+  return {st: S.st, lang: S.lang, prof: S.prof || {}, learn: {read: L.read || {}, chk: L.chk || {}, quiz: L.quiz || {}},
+    read: Object.keys(L.read || {}).length, solved: D.problems.filter(done).length, updatedAt: new Date().toISOString()};
 }
 async function flush() {
   if (!R.ref || R.readOnly) return;
@@ -275,7 +278,14 @@ function onMine(snap) {
       if (first && !Object.keys(rp).length && Object.values(S.prof || {}).some(Boolean)) changed = true;
       else S.prof = {roll: String(rp.roll || "").slice(0, 30), batch: String(rp.batch || "").slice(0, 40), cf: handle(rp.cf), lc: handle(rp.lc), cc: handle(rp.cc)};
       if (d.lang === "cpp" || d.lang === "java") S.lang = d.lang;
-      saveLocal(); header(); lectures(); problems(); statics(); progress();
+      const rl = (d.learn && typeof d.learn === "object") ? d.learn : {};
+      for (const f of ["read", "chk", "quiz"]) {
+        const src = (rl[f] && typeof rl[f] === "object") ? rl[f] : {}, ok = {};
+        for (const [k, v] of Object.entries(src)) if (typeof k === "string" && k.length < 60 && (v === 1 || v === "got" || v === "unsure")) ok[k] = v;
+        if (first) { for (const [k, v] of Object.entries(S.learn[f] || {})) if (!(k in ok)) { ok[k] = v; changed = true; } }
+        S.learn[f] = ok;
+      }
+      saveLocal(); header(); lectures(); problems(); statics(); progress(); applyLang(); if ($("v-learn").classList.contains("on")) learn();
       if (changed) schedule();
     }
   } else if (!R.merged) {
@@ -309,7 +319,7 @@ async function connect() {
       classView(); refreshDrawer();
     }, () => toast("Couldn't load class data"));
     db.collection("scores").onSnapshot(snap => { const next = {}; snap.docs.forEach(d => { next[d.id] = d.data(); }); R.scores = next; classView(); refreshDrawer(); }, () => {});
-    route();
+    route(); learn();
   }
   progress();
 }
@@ -318,7 +328,7 @@ async function connect() {
 function setStatus(id, val) {
   if (!pById[id] || !STAT.includes(val)) return;
   if (val === "Not started") delete S.st[id]; else S.st[id] = val;
-  saveLocal(); schedule(); header(); progress(); lectures(); if (location.hash === "#problems") problems();
+  saveLocal(); schedule(); header(); progress(); lectures(); if (location.hash === "#problems") problems(); if (location.hash === "#learn" || location.hash === "") learn();
 }
 function gotoLec(no) {
   open.add(no); modF = ""; $("lq").value = ""; lectures();
@@ -329,6 +339,7 @@ document.addEventListener("change", e => { const id = e.target.dataset?.id; if (
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-tog]"); if (t) { const id = t.dataset.tog, on = isDone(S.st[id]); setStatus(id, on ? "Not started" : "Solved"); toast(on ? "Marked as not started" : "Nice, marked solved"); return; }
   const s = e.target.closest("[data-stu]"); if (s) { drawer(s.dataset.stu); return; }
+  const nt = e.target.closest("[data-notes]"); if (nt) { const [m, k] = lecMod[+nt.dataset.notes]; jump(m, k); return; }
   const g = e.target.closest("[data-goto],[data-lec]"); if (g) { gotoLec(+(g.dataset.goto || g.dataset.lec)); return; }
   const c = e.target.closest("[data-mod]"); if (c) { modF = c.dataset.mod; lectures(); }
 });
@@ -341,8 +352,8 @@ $("pf-reset").addEventListener("click", () => { ["pq","pf-plat","pf-diff","pf-ty
 ["cq","cb","cs"].forEach(id => $(id).addEventListener("input", classView));
 ["rb","rmin","rpct","rcf"].forEach(id => $(id).addEventListener("input", readinessView));
 $("rexp").addEventListener("click", exportCsv);
-$("l-cpp").addEventListener("click", () => { S.lang = "cpp"; saveLocal(); schedule(); statics(); lectures(); toast("Showing the C++ track"); });
-$("l-java").addEventListener("click", () => { S.lang = "java"; saveLocal(); schedule(); statics(); lectures(); toast("Showing the Java track"); });
+$("l-cpp").addEventListener("click", () => { S.lang = "cpp"; saveLocal(); schedule(); statics(); lectures(); applyLang(); toast("Showing the C++ track"); });
+$("l-java").addEventListener("click", () => { S.lang = "java"; saveLocal(); schedule(); statics(); lectures(); applyLang(); toast("Showing the Java track"); });
 $("pform").addEventListener("submit", e => { e.preventDefault();
   S.prof = {roll: $("f-roll").value.trim().slice(0, 30), batch: $("f-batch").value.trim().slice(0, 40), cf: handle($("f-cf").value), lc: handle($("f-lc").value), cc: handle($("f-cc").value)};
   saveLocal(); schedule(); progress(); toast("Profile saved"); });
@@ -364,7 +375,8 @@ $("copy").addEventListener("click", async () => { try { await navigator.clipboar
 $("load").addEventListener("click", () => { try { const v = JSON.parse(atob($("code").value.trim())); if (typeof v !== "object" || !v || Array.isArray(v)) throw 0; const ok = {}; for (const [k, s] of Object.entries(v)) if (pById[k] && STAT.includes(s)) ok[k] = s; S.st = ok; saveLocal(); schedule(); all(); toast(`Loaded ${Object.keys(ok).length} entries`); } catch (e) { toast("That code could not be read"); } });
 let armed = false;
 $("reset").addEventListener("click", () => { if (!armed) { armed = true; $("reset").textContent = "Click again to confirm"; setTimeout(() => { armed = false; $("reset").textContent = "Reset"; }, 4000); return; } armed = false; S.st = {}; saveLocal(); schedule(); all(); $("reset").textContent = "Reset"; toast("Progress cleared"); });
-window.addEventListener("hashchange", route);
+__LEARNJS__
+window.addEventListener("hashchange", () => { route(); if (location.hash === "#learn") learn(); });
 once(); all(); route();
 connect();
 }

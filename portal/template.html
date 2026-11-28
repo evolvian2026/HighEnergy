@@ -17,6 +17,7 @@
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
 html,body{margin:0}
 html{scroll-padding-top:80px}
 body{background:var(--bg);color:var(--ink);font:16px/1.55 "Hanken Grotesk",system-ui,sans-serif;overflow-x:clip}
@@ -206,6 +207,99 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
 .pillrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 @media(max-width:760px){.hardgrid{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.heat{grid-template-columns:repeat(10,minmax(0,1fr))}.fgrid{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Learn ---- */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.lwrap{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start}
+.lside{position:sticky;top:76px;display:grid;gap:10px;padding-bottom:8px;z-index:6}
+.lsearch{position:relative}
+.lsres{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:8;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgb(10 37 64/.18);max-height:min(60vh,calc(100vh - 180px));overflow:auto}
+.lsr{display:grid;gap:2px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 14px;cursor:pointer;color:var(--ink);font-size:14px}
+.lsr:first-child{border-top:0}.lsr:hover,.lsr:focus-visible{background:var(--soft)}
+.lsr span{color:var(--mute);font-size:13px}.lsr em{color:var(--mute);font-style:normal;font-size:13px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.lselw{display:none}.lselw select{width:100%}
+.lrail{display:grid;gap:4px;position:static;background:none;border:0;backdrop-filter:none}
+.lmod{display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:5px;align-items:center;text-align:left;border:1px solid transparent;background:none;border-radius:12px;padding:6px 10px;cursor:pointer;color:var(--ink);font-size:14px;font-weight:600}
+.lmod:hover{background:var(--soft)}
+.lmod.on{background:var(--card);border-color:var(--line);box-shadow:var(--sh)}
+.lm-n{grid-row:span 2;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:13px;font-weight:700;background:color-mix(in srgb,var(--mc) 22%,transparent)}
+.lmod.on .lm-n{background:var(--mc);color:#0a2540}
+.lm-t{line-height:1.25}
+.lm-p{height:5px;border-radius:9px;background:var(--soft);overflow:hidden}.lm-p i{display:block;height:100%;background:var(--mc)}
+.lmode{background:var(--soft);border-color:var(--line);margin-bottom:14px}.lmode button{color:var(--mute)}.lmode button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.eyebrow.dark{color:var(--pinkd)}
+.lh-top{display:flex;gap:18px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+.lh-top h2{margin-top:4px}
+.lh-prog{min-width:220px;font-size:14px;color:var(--mute)}.lh-prog .track{margin:0 0 4px}
+.lintro{margin:10px 0 18px;max-width:78ch}.lintro>p{margin:0 0 10px}
+.lintro .tbl,.lb-body .tbl{box-shadow:none;margin:10px 0}
+.ltabs{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 12px;margin-top:4px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.ltabs [role=tab]{flex:none;display:grid;grid-template-columns:auto auto;column-gap:8px;align-items:center;text-align:left;max-width:280px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer;font-size:14px;font-weight:600;min-height:44px}
+.ltabs [role=tab] b{font-size:12px;color:var(--mute);grid-column:1/-1;line-height:1}
+.ltabs [role=tab] span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltabs [role=tab] .tp{font-style:normal;font-size:12px;color:var(--mute);background:var(--soft);border-radius:99px;padding:1px 7px}
+.ltabs [role=tab] .tp.full{background:var(--pink);color:#fff}
+.ltabs [role=tab][aria-selected=true]{background:var(--sea);border-color:var(--sea);color:#fff}
+.ltabs [role=tab][aria-selected=true] b{color:var(--sky)}
+.lpanel{padding-top:16px}
+.lctx{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:space-between;font-size:14px;color:var(--mute);margin-bottom:6px}
+.ltools{display:flex;justify-content:flex-end}
+.lblks{display:grid;gap:10px}
+.lblk{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.lblk[open]{border-color:color-mix(in srgb,var(--sky) 70%,var(--line));box-shadow:var(--sh)}
+.lblk summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px 16px;font-weight:700;font-size:17px}
+.lblk summary::-webkit-details-marker{display:none}
+.lblk summary:hover{background:var(--soft)}
+.lb-t{flex:1}
+.lb-dot{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center}
+.lb-dot svg{width:14px;height:14px;stroke:#fff;stroke-width:3}
+.lblk.read .lb-dot{background:var(--pink);border-color:var(--pink)}
+.lblk.read summary .lb-t{color:var(--mute)}
+.lblk[open] .chev{rotate:180deg}
+.lb-body{padding:2px 18px 16px 54px;border-top:1px solid var(--line)}
+.lb-body p,.lb-body li{max-width:78ch}
+.lb-body>p:first-child{margin-top:14px}
+.lb-body h5{margin:14px 0 4px}
+.lb-body ul,.lb-body ol{padding-left:22px}
+.lb-body a{color:var(--pinkd);font-weight:600}
+.lb-body .plist{margin-top:12px}
+.tasks{list-style:none;padding-left:0!important;display:grid;gap:6px}
+.task label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:8px 10px;border-radius:10px;background:var(--soft)}
+.task input{width:20px;height:20px;margin-top:2px;accent-color:var(--pink);flex:none}
+.task input:checked+span{color:var(--mute);text-decoration:line-through}
+.codeswap,.codeone{margin:12px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:light-dark(#f7f9fc,#0a1828)}
+.cbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px 6px 12px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--mute)}
+.cl{display:inline-flex;gap:2px;background:var(--soft);border-radius:8px;padding:2px}
+.cl button,.ccopy{border:0;background:none;color:var(--mute);font-weight:700;font-size:13px;padding:5px 10px;border-radius:6px;cursor:pointer;min-height:32px}
+.ccopy:hover{color:var(--ink)}
+:root[data-code=cpp] .cl [data-clang=cpp],:root[data-code=java] .cl [data-clang=java]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0/.12)}
+pre.code,pre.math{margin:0;padding:12px 14px;overflow:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;tab-size:4}
+pre.code code,pre.math code{background:none;padding:0;font:inherit;overflow-wrap:normal;white-space:pre}
+pre.math{font-size:15px;text-align:center;background:light-dark(#fff8fb,#1a1424)}
+pre.math code{white-space:pre-wrap}
+.codeswap pre[data-lang]{display:none}
+:root[data-code=cpp] .codeswap pre[data-lang=cpp],:root[data-code=java] .codeswap pre[data-lang=java],:root:not([data-code]) .codeswap pre[data-lang=cpp]{display:block}
+.quiz{list-style:none;padding:0!important;display:grid;gap:10px;counter-reset:q}
+.qcard{border:1px solid var(--line);border-radius:12px;padding:12px 14px;counter-increment:q;display:grid;gap:8px;background:var(--card)}
+.qcard .qq{font-weight:600}.qcard .qq::before{content:counter(q) ". ";color:var(--mute)}
+.qcard.r-got{border-color:color-mix(in srgb,#2fb67c 60%,var(--line));background:color-mix(in srgb,#2fb67c 7%,var(--card))}
+.qcard.r-unsure{border-color:color-mix(in srgb,var(--amber) 70%,var(--line));background:color-mix(in srgb,var(--amber) 8%,var(--card))}
+.qans{min-height:56px;font:15px/1.45 "Hanken Grotesk",system-ui,sans-serif}
+.qrate{display:flex;gap:6px;flex-wrap:wrap}
+.qb{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;cursor:pointer;min-height:38px}
+.qb[data-v=got][aria-pressed=true]{background:#2fb67c;border-color:#2fb67c;color:#fff}
+.qb[data-v=unsure][aria-pressed=true]{background:var(--amber);border-color:var(--amber);color:#0a2540}
+.qa summary,.hint summary{cursor:pointer;color:var(--pinkd);font-weight:600;font-size:14px;width:max-content}
+.qa div{margin-top:6px;padding:8px 12px;border-left:3px solid var(--pink);background:var(--soft);border-radius:0 8px 8px 0}
+.lb-body .pname a{color:var(--ink)}.lb-body .pname a:hover{color:var(--pinkd)}
+.hint summary{list-style:none}.hint summary::-webkit-details-marker{display:none}.hint summary::before{content:"+ "}.hint[open] summary::before{content:"− "}
+.hint{font-size:14px;margin-top:4px}.hint div{color:var(--ink);margin-top:2px}
+.bfoot{display:flex;justify-content:flex-end;margin-top:14px}
+.lnext{display:flex;justify-content:flex-end;margin-top:20px}
+.rdnotes{display:inline-flex;gap:8px;align-items:center;margin:0 10px 12px 0}.rdnotes svg{width:18px;height:18px;stroke:currentColor}
+@media(max-height:760px){.lside{position:static}}
+@media(max-width:980px){.lwrap{grid-template-columns:minmax(0,1fr)}.lside{position:static;max-height:none;overflow:visible}.lrail{display:none}.lselw{display:block}}
+@media(max-width:600px){.lb-body{padding:2px 14px 14px}.lblk summary{font-size:16px;padding:12px}.lh-prog{min-width:0;width:100%}}
 </style>
 </head>
 <body>
@@ -227,9 +321,22 @@ footer{border-top:1px solid var(--line);color:var(--mute);font-size:14px;padding
   <div class="board" id="board" aria-label="Lecture progress board"></div>
 </div></header>
 <nav><div class="wrap">
-  <a href="#lectures">Lectures</a><a href="#problems">Problem bank</a><a href="#projects">Projects</a><a href="#contests">Contests</a><a href="#placement">Placement</a><a href="#toolkit" id="tk-tab">C++ toolkit</a><a href="#progress">My progress</a><a href="#class" class="staffonly" hidden>Class</a><a href="#readiness" class="staffonly" hidden>Readiness</a>
+  <a href="#learn">Learn</a><a href="#lectures">Lecture plan</a><a href="#problems">Problem bank</a><a href="#projects">Projects</a><a href="#contests">Contests</a><a href="#placement">Placement</a><a href="#toolkit" id="tk-tab">C++ toolkit</a><a href="#progress">My progress</a><a href="#class" class="staffonly" hidden>Class</a><a href="#readiness" class="staffonly" hidden>Readiness</a>
 </div></nav>
 <main><div class="wrap">
+  <section class="view" id="v-learn">
+    <div class="lwrap">
+      <aside class="lside"><div class="lsearch"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="lsq" placeholder="Search the handbooks" aria-label="Search the handbooks" autocomplete="off"></label><div class="lsres" id="lsres" hidden></div></div>
+        <label class="lselw"><span class="sr">Module</span><select id="lsel" aria-label="Module"></select></label>
+        <div class="lrail" id="lrail" role="navigation" aria-label="Modules"></div></aside>
+      <div class="lmain">
+        <div class="seg lmode" id="lmode" role="group" aria-label="Handbook view" hidden><button id="lm-s" data-lmode="student" aria-pressed="true">Student handbook</button><button id="lm-t" data-lmode="teacher" aria-pressed="false">Teacher guide</button></div>
+        <div id="lhead" class="lhead"></div>
+        <div class="ltabs" id="ltabs" role="tablist" aria-label="Lectures in this module"></div>
+        <div id="lpanel" class="lpanel" role="tabpanel"></div>
+      </div>
+    </div>
+  </section>
   <section class="view" id="v-lectures">
     <div class="bar" style="position:static">
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="lq" placeholder="Search lectures and topics" aria-label="Search lectures"></label>

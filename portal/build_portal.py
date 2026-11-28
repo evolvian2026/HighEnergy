@@ -1,4 +1,6 @@
-"""Build the portal from portal/template.html + portal/app.js + portal/data.json.
+"""Build the portal from portal/template.html + portal/app.js + portal/learn.js + portal/data.json + portal/learn.json.
+
+Run portal/build_learn.py first when the handbooks in course/content change.
 
 Usage:  python portal/build_portal.py
 
@@ -13,7 +15,9 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ARTIFACT_URL = "https://claude.ai/artifact/Fmt9FH4NKNvmDHeoWQwiJT"
 
 tpl = (ROOT / "portal/template.html").read_text(encoding="utf-8")
-app = (ROOT / "portal/app.js").read_text(encoding="utf-8")
+learn = (ROOT / "portal/learn.json").read_text(encoding="utf-8").replace("</", "<\\/")
+learn_js = (ROOT / "portal/learn.js").read_text(encoding="utf-8").replace("__LEARN__", learn)
+app = (ROOT / "portal/app.js").read_text(encoding="utf-8").replace("__LEARNJS__", learn_js)
 data = (ROOT / "portal/data.json").read_text(encoding="utf-8").replace("</", "<\\/")
 page = tpl.replace("__APP__", app).replace("__DATA__", data)
 
